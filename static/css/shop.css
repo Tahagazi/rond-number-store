@@ -17,7 +17,7 @@
     flex-direction: column;
     padding: var(--space-5);
     gap: var(--space-6);
-    transition: transform var(--transition-slow) var(--ease-smooth);
+    transition: all var(--transition-slow) var(--ease-smooth);
 }
 
 .menu-overlay {
@@ -348,7 +348,7 @@
     z-index: var(--z-modal);
     display: flex;
     flex-direction: column;
-    transition: transform var(--transition-slow) var(--ease-smooth);
+    transition: all var(--transition-slow) var(--ease-smooth);
 }
 
 .drawer-header {

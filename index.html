@@ -184,14 +184,19 @@
 <!-- ==========================================================================
      SEARCH
      ========================================================================== -->
-<div class="container-app">
+<div id="search-input" class="container-app">
   <div class="search-wrap max-w-3xl mx-auto" @click.outside="searchFocused = false">
     <div class="search-input-box" :class="searchFocused ? 'is-focused' : ''">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="icon-md" style="color:var(--text-muted);">
         <circle cx="11" cy="11" r="7"/>
         <path stroke-linecap="round" d="M21 21l-4.3-4.3"/>
       </svg>
-      <input type="text" placeholder="جست‌وجوی شماره..." x-model="searchQuery" @focus="searchFocused = true" @keydown.enter="goToSearch()">
+      <input type="text" placeholder="جست‌وجوی شماره..." x-model="searchQuery" @focus="searchFocused = true ; 
+                                                                                const el = document.getElementById('search-input');
+                                                                                if (el) {
+                                                                                  const y = el.getBoundingClientRect().top + window.scrollY - 73;
+                                                                                  window.scrollTo({ top: y, behavior: 'smooth' });
+                                                                                }" @keydown.enter="goToSearch()">
       <button type="button" class="search-go-btn" :class="searchQuery.length > 0 ? 'is-visible' : ''" @click="goToSearch()" aria-label="جست‌وجو">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm">
           <path stroke-linecap="round" stroke-linejoin="round" d="M11 19l-7-7 7-7M4 12h16"/>
@@ -200,7 +205,11 @@
     </div>
 
     <!-- dropdown -->
-    <div class="search-dropdown" x-show="searchFocused" x-transition x-cloak>
+    <div class="search-dropdown relative" x-show="searchFocused" x-transition x-cloak>
+
+      <svg @click="searchFocused = false" class="icon-xs !w-[24px] !h-[24px] text-[var(--text-muted)] absolute top-[var(--space-2)] left-[var(--space-2)]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"></path>
+      </svg>
 
       <div>
         <p class="search-dropdown-title">نتایج جست‌وجو</p>
@@ -322,7 +331,7 @@
       </div>
     </div>
     <div class="drawer-footer">
-      <button type="button" class="btn btn-primary w-full" @click="mobileSheetKey = null">اعمال فیلتر</button>
+      <button type="button" class="btn btn-primary w-full" @click="mobileSheetKey = null ; $refs['filters-row'].scrollTo({ left: 0, behavior: 'smooth' })">اعمال فیلتر</button>
     </div>
   </div>
 
