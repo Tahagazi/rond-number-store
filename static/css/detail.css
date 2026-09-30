@@ -1,0 +1,342 @@
+/* ==========================================================================
+   DETAIL.CSS
+   Number detail page — breadcrumb, hero, specs, trust ("why special"), modal & toast.
+   Uses only tokens defined in general.css.
+   ========================================================================== */
+
+/* ---------- Breadcrumb ---------- */
+.breadcrumb-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-sm);
+    padding-block: var(--space-6);
+}
+.breadcrumb-link {
+    color: var(--text-muted);
+    transition: color var(--transition-fast) var(--ease-default);
+}
+.breadcrumb-link:hover {
+    color: var(--primary);
+}
+.breadcrumb-current {
+    color: var(--text-primary);
+    font-weight: var(--font-medium);
+}
+.breadcrumb-row svg {
+    color: var(--text-disabled);
+}
+
+/* ---------- Hero ---------- */
+.detail-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-4);
+    padding-block: var(--space-6) var(--space-10);
+}
+
+.detail-number-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.detail-number-digits {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-bold);
+    color: var(--text-primary);
+    direction: ltr;
+    letter-spacing: .5px;
+}
+
+.rendi-pill {
+    display: inline-flex;
+    align-items: center;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-medium);
+    border-radius: var(--radius-full);
+    padding: var(--space-1) var(--space-4);
+}
+.rendi-pill.tone-a { background: var(--success-soft); color: var(--success); }
+.rendi-pill.tone-b { background: var(--info-soft); color: var(--info); }
+.rendi-pill.tone-c { background: var(--warning-soft); color: var(--warning); }
+
+.detail-meta-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+}
+.detail-meta-row .meta-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+.detail-meta-row .meta-item svg {
+    color: var(--primary);
+}
+
+.price-status-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    background: var(--surface-secondary);
+    border: var(--border-thin) solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4) var(--space-8);
+}
+.price-status-box .price-value {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-bold);
+    color: var(--text-primary);
+}
+
+.detail-actions-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* ---------- Specs Grid ---------- */
+.spec-card {
+    background: var(--surface-primary);
+    border: var(--border-thin) solid var(--border-light);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.spec-card-header {
+    padding: var(--space-5) var(--space-6);
+    border-bottom: var(--border-thin) solid var(--border-light);
+}
+
+/* پیش‌فرض موبایل: ۲ ستونه */
+.spec-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+    padding: var(--space-6);
+}
+
+/* تبلت (بزرگتر از 768px): ۳ ستونه */
+@media (min-width: 768px) {
+    .spec-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* دسکتاپ (بزرگتر از 1024px): ۴ ستونه */
+@media (min-width: 1024px) {
+    .spec-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.spec-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.spec-row-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.spec-row-label {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+}
+
+.spec-row-value {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-semibold);
+    color: var(--text-primary);
+}
+
+.spec-row-value.is-accent {
+    color: var(--primary);
+}
+
+.spec-icon {
+    width: var(--space-10);
+    height: var(--space-10);
+    border-radius: var(--radius-full);
+    background: var(--surface-tertiary);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* ---------- Trust / "why special" panel ---------- */
+.why-panel {
+    background: var(--accent-soft);
+    border-radius: var(--radius-xl);
+    padding: var(--space-8) var(--space-6);
+}
+
+.why-panel-head {
+    text-align: center;
+    max-width: 640px;
+    margin-inline: auto;
+    margin-bottom: var(--space-8);
+}
+.why-panel-head h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-bold);
+    color: var(--text-primary);
+}
+.why-panel-head p {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin-top: var(--space-2);
+    line-height: var(--line-relaxed);
+}
+
+
+
+/* ---------- استایل ویژه تک‌ستونه (موبایل) ---------- */
+@media (max-width: 639px) {
+    .trust-grid { 
+        grid-template-columns: repeat(1, 1fr); 
+        gap: var(--space-5);
+    }
+
+    .trust-item {
+        flex-direction: row;        /* قرارگیری آیکون و متن کنار هم */
+        align-items: center;        /* تراز عمودی در مرکز */
+        text-align: right;          /* راست‌چین شدن متون */
+        gap: var(--space-4);
+    }
+}
+
+/* ---------- Modal ---------- */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 18, 17, var(--opacity-overlay));
+    backdrop-filter: blur(var(--blur-sm));
+    z-index: var(--z-overlay);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-5);
+}
+
+.modal-box {
+    width: min(420px, 100%);
+    background: var(--surface-primary);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.modal-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-bold);
+    color: var(--text-primary);
+}
+
+.modal-field label {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin-bottom: var(--space-2);
+}
+.modal-field input {
+    width: 100%;
+    background: var(--surface-secondary);
+    border: var(--border-thin) solid var(--border-default);
+    border-radius: var(--radius-md);
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--font-size-base);
+    color: var(--text-primary);
+    direction: ltr;
+    text-align: end;
+    transition: border-color var(--transition-fast) var(--ease-default);
+}
+.modal-field input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: var(--shadow-focus);
+}
+.modal-field p.error {
+    font-size: var(--font-size-xs);
+    color: var(--danger);
+    margin-top: var(--space-2);
+}
+
+/* ---------- Toast ---------- */
+.toast-stack {
+    position: fixed;
+    top: var(--space-6);
+    inset-inline-start: var(--space-6);
+    z-index: var(--z-toast);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    width: min(340px, calc(100vw - var(--space-8)));
+}
+
+.toast-card {
+    background: var(--surface-primary);
+    border: var(--border-thin) solid var(--border-light);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    padding: var(--space-4);
+    overflow: hidden;
+    position: relative;
+}
+
+.toast-body {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+}
+.toast-icon {
+    width: var(--space-8);
+    height: var(--space-8);
+    border-radius: var(--radius-full);
+    background: var(--success-soft);
+    color: var(--success);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.toast-message {
+    font-size: var(--font-size-sm);
+    color: var(--text-primary);
+    line-height: var(--line-normal);
+}
+
+.toast-timer-track {
+    height: 3px;
+    background: var(--border-light);
+    border-radius: var(--radius-full);
+    margin-top: var(--space-3);
+    overflow: hidden;
+}
+.toast-timer-fill {
+    height: 100%;
+    background: var(--primary);
+    width: 100%;
+    transition: width linear;
+}

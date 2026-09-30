@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="language" content="fa">
+<meta name="robots" content="index, follow">
+
+<meta name="theme-color" content="#0F766E">
+
+<link rel="canonical" href="https://example.com/...">
+
+<meta
+    name="description"
+    content="خرید و مشاهده شماره‌های رند و خاص با امکان جستجو و فیلتر بر اساس پیش‌شماره، نوع رند، نوع خط و قیمت."
+>
+<meta property="og:type" content="website">
+<meta property="og:title" content="خرید شماره رند | فروش شماره‌های رند و خاص">
+<meta
+    property="og:description"
+    content="مشاهده و جستجوی شماره‌های رند و خاص با فیلترهای متنوع و ارتباط مستقیم با فروشنده."
+>
+<meta property="og:url" content="https://example.com/shop/">
+<meta property="og:image" content="static/images/og/simcart.webp">
+<meta property="og:locale" content="fa_IR">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="خرید شماره رند | فروش شماره‌های رند و خاص">
+<meta
+    name="twitter:description"
+    content="مشاهده و جستجوی شماره‌های رند و خاص با فیلترهای متنوع."
+>
+<meta name="twitter:image" content="static/images/og/simcart.webp">
+
+<link rel="icon" href="static/faveicon/favicon.ico" sizes="any">
+<link rel="icon" href="static/faveicon/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="static/faveicon/favicon-96x96.png" type="image/png" sizes="96x96">
+
+<link rel="apple-touch-icon" href="static/faveicon/apple-touch-icon.png">
+
+<link rel="manifest" href="static/faveicon/site.webmanifest">
+
+<title>رندکده | ویترین آنلاین شماره‌های رند</title>
+
+<link rel="stylesheet" href="static/css/output.css">
+<link rel="stylesheet" href="static/css/general.css">
+<link rel="stylesheet" href="static/css/shop.css">
+
+<!-- Swiper -->
+<link rel="stylesheet" href="static/swiper/swiper.min.css">
+<script src="static/swiper/swiper.min.js"></script>
+
+<!-- Alpine.js -->
+<script defer src="static/collapse.js"></script>
+<script defer src="static/alpine.js"></script>
+
+</head>
+
+<body style="background:var(--bg-primary); color:var(--text-primary);" x-data="shopApp()" x-init="init()" :data-theme="theme">
+
+<!-- ==========================================================================
+     HEADER
+     ========================================================================== -->
+<header class="sticky top-0 z-[var(--z-sticky)] border-b" style="background:color-mix(in srgb, var(--surface-primary) 95%, transparent); border-color:var(--border-light); backdrop-filter:blur(var(--blur-sm));">
+  <div class="container-app flex items-center justify-between" style="height:72px;">
+
+    <!-- hamburger (right side in RTL) -->
+    <button type="button" class="icon-btn" @click="mobileMenuOpen = true" aria-label="باز کردن منو">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="icon-md">
+        <path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+
+    <!-- logo -->
+    <a href="index.html" class="flex items-center" style="gap:var(--space-2);">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="icon-lg" style="color:var(--accent);">
+        <path d="M4 9l2 6h12l2-6-5 3-3-6-3 6-5-3z" stroke-linejoin="round"/>
+        <path d="M5.5 18h13" stroke-linecap="round"/>
+      </svg>
+      <span class="font-[var(--font-bold)]" style="font-size:var(--font-size-xl); color:var(--primary);">رندکده</span>
+    </a>
+
+    <!-- support -->
+    <div class="hidden sm:flex items-center" style="gap:var(--space-2); color:var(--text-secondary); font-size:var(--font-size-sm);">
+      <span class="icon-btn" style="width:36px; height:36px;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="icon-sm">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 5.5c0 8 7.5 15.5 15.5 15.5l2-4-5-2-1.5 1.5A12 12 0 018 12.5L9.5 11 7.5 6 3.5 5.5z"/>
+        </svg>
+      </span>
+      <span class="flex flex-col" style="line-height:var(--line-tight);">
+        <span class="font-[var(--font-semibold)]" style="color:var(--text-primary);" dir="ltr">937 555 1234</span>
+        <span style="font-size:var(--font-size-xs); color:var(--text-muted);">پشتیبانی</span>
+      </span>
+    </div>
+    <button type="button" class="sm:!hidden icon-btn" aria-label="پشتیبانی">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="icon-sm">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3 5.5c0 8 7.5 15.5 15.5 15.5l2-4-5-2-1.5 1.5A12 12 0 018 12.5L9.5 11 7.5 6 3.5 5.5z"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<!-- Off-canvas menu -->
+<div class="menu-overlay" x-show="mobileMenuOpen" x-transition.opacity @click="mobileMenuOpen = false" x-cloak></div>
+<aside class="menu-panel" :class="mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'" x-cloak>
+
+  <div class="flex items-center justify-between">
+    <a href="#" class="flex items-center" style="gap:var(--space-2);">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="icon-lg" style="color:var(--accent);">
+        <path d="M4 9l2 6h12l2-6-5 3-3-6-3 6-5-3z" stroke-linejoin="round"/>
+        <path d="M5.5 18h13" stroke-linecap="round"/>
+      </svg>
+      <span class="font-[var(--font-bold)]" style="font-size:var(--font-size-lg); color:var(--primary);">رندکده</span>
+    </a>
+    <button type="button" class="theme-toggle" @click="toggleTheme()" aria-label="تغییر تم">
+      <svg x-show="theme === 'light'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="icon-md">
+        <path d="M21 12.5A8.5 8.5 0 1111.5 3 7 7 0 0021 12.5z"/>
+      </svg>
+      <svg x-show="theme === 'dark'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="icon-md" x-cloak>
+        <circle cx="12" cy="12" r="4"/>
+        <path stroke-linecap="round" d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/>
+      </svg>
+    </button>
+  </div>
+
+  <nav class="flex flex-col" style="gap:var(--space-1);">
+    <a href="#numbers" class="menu-link" :class="activeMenuLink === 'shop' ? 'is-active' : ''" @click="activeMenuLink = 'shop'; mobileMenuOpen = false">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="icon-md"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/></svg>
+      <span>فروشگاه</span>
+    </a>
+    <a href="#" class="menu-link" :class="activeMenuLink === 'fav' ? 'is-active' : ''" @click="activeMenuLink = 'fav'; mobileMenuOpen = false">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart preview-icon icon-md"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg>
+      <span>علاقه‌مندی‌ها</span>
+    </a>
+    <a href="#special" class="menu-link" :class="activeMenuLink === 'special' ? 'is-active' : ''" @click="activeMenuLink = 'special'; mobileMenuOpen = false">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="icon-md"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg>
+      <span>شماره‌های ویژه</span>
+    </a>
+  </nav>
+
+  <p class="mt-auto border-t" style="font-size:var(--font-size-sm); color:var(--text-muted); line-height:var(--line-relaxed); border-color:var(--border-light); padding-top:var(--space-5);">
+    رندکده مرجع خرید و فروش امن شماره‌های رند و خاص است؛ با پشتیبانی مستقیم و اطلاعات شفاف کنار شماست.
+  </p>
+</aside>
+
+<!-- ==========================================================================
+     HERO
+     ========================================================================== -->
+<section class="hero-section">
+  <div class="container-app text-center max-w-3xl mx-auto">
+    <h1 class="heading-hero">
+      شماره‌ای خاص،<br>انتخابی متفاوت
+    </h1>
+    <p class="text-body mx-auto max-w-xl" style="margin-top:var(--space-5);">
+      مجموعه‌ای از شماره‌های رند و خاص، برای کسانی که به انتخاب‌های متمایز اهمیت می‌دهند.
+    </p>
+
+    <div class="flex flex-wrap items-center justify-center" style="gap:var(--gap-md); margin-top:var(--space-8);">
+      <button type="button" class="btn btn-outline hero-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#2ecc71" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-sm">
+          <path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.5 0-3-.4-4.2-1.1L3 20l1.2-5.2A8.5 8.5 0 1 1 21 11.5z"/>
+          <path d="M8.5 10.5h7M8.5 13.5h4"/>
+        </svg>
+        ارتباط مستقیم با ادمین
+      </button>
+      
+      <button type="button" class="btn btn-outline hero-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#f39c12" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-sm">
+          <path d="M13 2L4 14h6l-1 8 9-12h-6z"/>
+        </svg>
+        نقد و اقساط
+      </button>
+      
+      <button type="button" class="btn btn-outline hero-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-sm">
+          <path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>
+        </svg>
+        شماره‌های ویژه
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     SEARCH
+     ========================================================================== -->
+<div class="container-app">
+  <div class="search-wrap max-w-3xl mx-auto" @click.outside="searchFocused = false">
+    <div class="search-input-box" :class="searchFocused ? 'is-focused' : ''">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="icon-md" style="color:var(--text-muted);">
+        <circle cx="11" cy="11" r="7"/>
+        <path stroke-linecap="round" d="M21 21l-4.3-4.3"/>
+      </svg>
+      <input type="text" placeholder="جست‌وجوی شماره..." x-model="searchQuery" @focus="searchFocused = true" @keydown.enter="goToSearch()">
+      <button type="button" class="search-go-btn" :class="searchQuery.length > 0 ? 'is-visible' : ''" @click="goToSearch()" aria-label="جست‌وجو">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M11 19l-7-7 7-7M4 12h16"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- dropdown -->
+    <div class="search-dropdown" x-show="searchFocused" x-transition x-cloak>
+
+      <div>
+        <p class="search-dropdown-title">نتایج جست‌وجو</p>
+        <div class="search-dropdown-row">
+          <template x-for="r in searchResults" :key="r.number">
+            <div class="sim-chip">
+              <span class="sim-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="4" y="2" width="16" height="20" rx="3"/>
+                  <path stroke-linecap="round" d="M9 6h6"/>
+                </svg>
+              </span>
+              <span class="sim-number" x-text="r.number"></span>
+              <span class="sim-price" x-text="formatPrice(r.price)"></span>
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <div>
+        <p class="search-dropdown-title">پیشنهادات</p>
+        <div class="search-dropdown-row">
+          <template x-for="s in suggestions" :key="s">
+            <button type="button" class="search-tag" @click="searchQuery = s" x-text="s"></button>
+          </template>
+        </div>
+      </div>
+
+      <div>
+        <p class="search-dropdown-title">جست‌وجوهای اخیر</p>
+        <div class="search-dropdown-row">
+          <template x-for="rc in recentSearches" :key="rc">
+            <button type="button" class="search-tag" @click="searchQuery = rc" x-text="rc"></button>
+          </template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================================================
+     FILTERS + SORT + GRID
+     ========================================================================== -->
+<section id="numbers" class="container-app" style="margin-top:var(--space-10);">
+
+  <!-- filters row -->
+  <div class="filters-bar" style="margin-bottom:var(--space-5); overflow-x: auto;" x-ref="filters-row">
+    <button type="button" class="filters-open-btn" style="flex-shrink:0;" @click="openFiltersDrawer()">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="icon-sm">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M7 12h10M10 18h4"/>
+      </svg>
+      فیلترها
+      <span x-show="activeFilterCount() > 0" x-text="'('+activeFilterCount()+')'"></span>
+    </button>
+
+    <!-- reorderable quick capsules -->
+    <template x-for="def in orderedFilterDefs()" :key="def.key">
+      <div class="relative" style="flex-shrink:0;">
+        <!-- ۱. اضافه شدن anchor-name به دکمه -->
+        <button type="button" class="filter-capsule" :class="filters[def.key] !== 'همه' ? 'is-active' : ''"
+                :style="`anchor-name: --filter-${def.key}`"
+                @click="toggleCapsule(def.key)">
+          <span x-text="def.label + ': ' + filters[def.key]"></span>
+          <svg class="icon-xs chevron-rotate" :class="openCapsule === def.key ? 'is-open' : ''" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/>
+          </svg>
+          <span class="clear-x order-[-1]" x-show="filters[def.key] !== 'همه'" @click.stop="resetFilter(def.key)">
+            <svg class="icon-xs !w-[18px] !h-[18px] text-[var(--danger)]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/>
+            </svg>
+          </span>
+        </button>
+
+        <!-- ۲. تغییر موقعیت به fixed و اتصال به position-anchor -->
+        <div class="capsule-dropdown fixed hidden md:block" 
+             :style="`position-anchor: --filter-${def.key}`"
+             x-show="openCapsule === def.key" 
+             x-transition 
+             x-cloak
+             @click.outside="if (openCapsule === def.key) openCapsule = null">
+          <button type="button" class="capsule-dropdown-item" :class="filters[def.key]==='همه' ? 'is-selected' : ''" @click="selectFilter(def.key,'همه')">همه</button>
+          <template x-for="opt in def.options" :key="opt">
+            <button type="button" class="capsule-dropdown-item" :class="filters[def.key]===opt ? 'is-selected' : ''" @click="selectFilter(def.key, opt); $refs['filters-row'].scrollTo({ left: 0, behavior: 'smooth' })" x-text="opt"></button>
+          </template>
+        </div>
+      </div>
+    </template>
+
+    <!-- special only toggle capsule -->
+    <button type="button" class="filter-capsule" style="flex-shrink:0;" :class="filters.specialOnly ? 'is-active order-[-1]' : ''" @click="filters.specialOnly = !filters.specialOnly; $refs['filters-row'].scrollTo({ left: 0, behavior: 'smooth' })">
+      <span>فقط شماره‌های ویژه</span>
+      <svg class="icon-xs" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>
+      </svg>
+      <span class="clear-x order-[-1]" x-show="filters.specialOnly" @click.stop="filters.specialOnly=false">
+        <svg class="icon-xs !w-[18px] !h-[18px] text-[var(--danger)]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+      </span>
+    </button>
+  </div>
+
+  <!-- mobile option sheet (shared by all list-type capsule filters) -->
+  <div class="menu-overlay" x-show="mobileSheetKey !== null" x-transition.opacity @click="mobileSheetKey = null" x-cloak></div>
+  <div class="mobile-option-sheet md:hidden" x-show="mobileSheetKey !== null"
+       x-transition:enter="transition ease-[var(--ease-smooth)] duration-[var(--transition-slow)]" x-transition:enter-start="translate-y-full" x-transition:enter-end="translate-y-0"
+       x-transition:leave="transition ease-[var(--ease-default)] duration-[var(--transition-normal)]" x-transition:leave-start="translate-y-0" x-transition:leave-end="translate-y-full" x-cloak>
+    <div class="drawer-header">
+      <h3 class="font-[var(--font-semibold)]" x-text="currentSheetDef() ? currentSheetDef().label : ''"></h3>
+      <button type="button" class="icon-btn" @click="mobileSheetKey = null">
+        <svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="drawer-body">
+      <div class="flex flex-wrap" style="gap:var(--gap-sm);">
+        <template x-if="currentSheetDef()">
+          <template x-for="opt in ['همه', ...currentSheetDef().options]" :key="opt">
+            <button type="button" class="option-pill" :class="filters[mobileSheetKey] === opt ? 'is-selected' : ''" @click="filters[mobileSheetKey] = opt; updateCapsuleOrder();" x-text="opt"></button>
+          </template>
+        </template>
+      </div>
+    </div>
+    <div class="drawer-footer">
+      <button type="button" class="btn btn-primary w-full" @click="mobileSheetKey = null">اعمال فیلتر</button>
+    </div>
+  </div>
+
+  <!-- sort row -->
+  <div class="flex items-center justify-between flex-wrap" style="gap:var(--gap-md); margin-bottom:var(--space-6);">
+    <div class="relative">
+      <button type="button" class="filter-capsule" @click="sortOpen = !sortOpen">
+        <span x-text="'مرتب‌سازی: ' + sortLabel()"></span>
+        <svg class="icon-xs chevron-rotate" :class="sortOpen ? 'is-open' : ''" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/>
+        </svg>
+      </button>
+      <div class="capsule-dropdown !absolute !z-0" x-show="sortOpen" @click.outside="sortOpen = false" x-transition x-cloak>
+        <template x-for="opt in sortOptions" :key="opt.value">
+          <button type="button" class="capsule-dropdown-item" :class="sortBy===opt.value ? 'is-selected' : ''" @click="sortBy = opt.value; sortOpen = false" x-text="opt.label"></button>
+        </template>
+      </div>
+    </div>
+    <span style="font-size:var(--font-size-sm); color:var(--text-muted);"><span x-text="totalCount"></span> شماره</span>
+  </div>
+
+  <!-- grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" style="gap:var(--gap-md);">
+    <template x-for="item in numbers" :key="item.id">
+      <a href="detail.html">
+      <article class="number-card" :class="item.special ? 'is-special' : ''">
+        <div class="number-card-top">
+          <button type="button" class="number-card-heart" :class="favorites.includes(item.id) ? 'is-fav' : ''" @click="toggleFav(item.id)" aria-label="افزودن به علاقه‌مندی">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" :fill="favorites.includes(item.id) ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart preview-icon icon-md" fill="none"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg>
+          </button>
+          <span class="badge-special" x-show="item.special">ویژه</span>
+        </div>
+
+        <p class="number-card-digits" x-text="item.number"></p>
+
+        <div class="number-card-info">
+          <p><span class="label">اپراتور :</span> <span x-text="item.operatorName"></span></p>
+          <p><span class="label">نوع رندی :</span> <span x-text="item.tags.join(' . ')"></span></p>
+          <p><span class="label">وضعیت :</span> <span x-text="item.status + ' · ' + item.type"></span></p>
+        </div>
+
+        <div class="number-card-bottom">
+          <span :class="item.available ? 'badge-success' : 'badge-danger'" x-text="item.available ? 'موجود' : 'ناموجود'"></span>
+          <span class="number-card-price" x-text="formatPrice(item.price)"></span>
+        </div>
+      </article>
+      </a>
+    </template>
+  </div>
+
+  <!-- pagination -->
+  <div class="flex items-center justify-center" style="gap:var(--gap-sm); margin-top:var(--space-8);">
+    <button type="button" class="page-item" @click="currentPage = Math.max(1,currentPage-1)">
+      <svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transform: rotate(180deg);"><path stroke-linecap="round" stroke-linejoin="round" d="M15 6l-6 6 6 6"/></svg>
+    </button>
+    <template x-for="p in [1,2,3,4,5]" :key="p">
+      <button type="button" class="page-item" :class="currentPage===p ? 'is-active' : ''" @click="currentPage = p" x-text="p"></button>
+    </template>
+    <button type="button" class="page-item" @click="currentPage = Math.min(5,currentPage+1)">
+      <svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transform: rotate(180deg);"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6"/></svg>
+    </button>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     FULL FILTERS DRAWER
+     ========================================================================== -->
+<div class="menu-overlay" x-show="filtersOpen" x-transition.opacity @click="filtersOpen = false" x-cloak></div>
+<aside x-transition class="drawer-panel" :class="filtersOpen ? 'translate-x-0' : 'translate-x-full'" x-cloak>
+
+  <div class="drawer-header">
+    <h3 class="font-[var(--font-bold)]" style="font-size:var(--font-size-lg);">فیلترها</h3>
+    <button type="button" class="icon-btn" @click="filtersOpen = false">
+      <svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+
+  <div class="drawer-body">
+
+    <template x-for="def in filterDefs" :key="'d-'+def.key">
+      <div class="filter-group">
+        <button type="button" class="accordion-header" @click="drawerAccordion[def.key] = !drawerAccordion[def.key]">
+          <span class="accordion-header-start">
+            <svg class="icon-sm group-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path :d="def.icon" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+            <span class="filter-group-title" x-text="def.label"></span>
+          </span>
+          <svg class="icon-sm chevron-rotate" :class="drawerAccordion[def.key] ? 'is-open' : ''" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/>
+          </svg>
+        </button>
+        <div class="filter-option-list" x-show="drawerAccordion[def.key]" x-collapse x-cloak>
+          <label class="filter-checkbox-row" :class="draftFilters[def.key]==='همه' ? 'is-selected' : ''">
+            <input type="radio" :name="def.key" :checked="draftFilters[def.key]==='همه'" @change="draftFilters[def.key]='همه'">
+            <span>همه</span>
+          </label>
+          <template x-for="opt in def.options" :key="opt">
+            <label class="filter-checkbox-row" :class="draftFilters[def.key]===opt ? 'is-selected' : ''">
+              <input type="radio" :name="def.key" :checked="draftFilters[def.key]===opt" @change="draftFilters[def.key]=opt">
+              <span x-text="opt"></span>
+            </label>
+          </template>
+        </div>
+      </div>
+    </template>
+
+    <div>
+      <label class="filter-checkbox-row" :class="draftFilters.specialOnly ? 'is-selected' : ''" style="border-width:var(--border-thin); padding:var(--space-3);">
+        <input type="checkbox" x-model="draftFilters.specialOnly">
+        <span>نمایش فقط شماره‌های ویژه</span>
+      </label>
+    </div>
+
+    <div>
+      <p class="filter-group-title" style="margin-bottom:var(--space-3);">بازه قیمت (میلیون تومان)</p>
+      <div class="range-slider">
+        <div class="track"></div>
+        <div class="track-active" :style="`inset-inline-start:${(draftFilters.priceMin/4000)*100}%; inset-inline-end:${100-(draftFilters.priceMax/4000)*100}%`"></div>
+        <input type="range" min="0" max="4000" step="10" x-model.number="draftFilters.priceMin" @input="if(draftFilters.priceMin > draftFilters.priceMax) draftFilters.priceMax = draftFilters.priceMin">
+        <input type="range" min="0" max="4000" step="10" x-model.number="draftFilters.priceMax" @input="if(draftFilters.priceMax < draftFilters.priceMin) draftFilters.priceMin = draftFilters.priceMax">
+      </div>
+      <div class="flex items-center justify-between" style="font-size:var(--font-size-xs); color:var(--text-muted); margin-top:var(--space-2);">
+        <span>تا قیمت: <span x-text="formatPrice(draftFilters.priceMax)"></span></span>
+        <span>از قیمت: <span x-text="formatPrice(draftFilters.priceMin)"></span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="drawer-footer">
+    <button type="button" class="btn btn-primary w-full" @click="applyFilters()">
+      اعمال <span x-text="draftActiveFilterCount()"></span> فیلتر
+    </button>
+  </div>
+</aside>
+
+<!-- ==========================================================================
+     SPECIAL NUMBERS
+     ========================================================================== -->
+<section id="special" class="container-app" style="margin-top:var(--space-16);">
+  <div class="special-panel">
+    <div class="flex items-center justify-between relative z-10" style="margin-bottom:var(--space-6);">
+      <h2 class="flex items-center font-[var(--font-bold)]" style="gap:var(--space-2); color:#fff; font-size:var(--font-size-xl);">
+        <svg class="icon-md" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="color:var(--accent);"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg>
+        شماره‌های ویژه
+      </h2>
+    </div>
+
+    <div class="carousel-shell relative z-10">
+      <button type="button" class="carousel-nav nav-start special-nav-btn special-prev" aria-label="قبلی">
+        <svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transform: rotate(180deg);"><path stroke-linecap="round" stroke-linejoin="round" d="M15 6l-6 6 6 6"/></svg>
+      </button>
+      <button type="button" class="carousel-nav nav-end special-nav-btn special-next" aria-label="بعدی">
+        <svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transform: rotate(180deg);"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6"/></svg>
+      </button>
+
+      <div class="swiper special-swiper">
+        <div class="swiper-wrapper">
+          <template x-for="item in specialNumbers" :key="item.id">
+            <div class="swiper-slide">
+              <article class="number-card is-special">
+                <div class="number-card-top">
+                  <button type="button" class="number-card-heart" :class="favorites.includes(item.id) ? 'is-fav' : ''" @click="toggleFav(item.id)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" :fill="favorites.includes(item.id) ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart preview-icon icon-md" fill="none"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg>
+                  </button>
+                  <span class="badge-special">ویژه</span>
+                </div>
+                <p class="number-card-digits" x-text="item.number"></p>
+                <div class="number-card-info">
+                  <p><span class="label">اپراتور :</span> <span x-text="item.operatorName"></span></p>
+                  <p><span class="label">نوع رندی :</span> <span x-text="item.tags.join(' . ')"></span></p>
+                  <p><span class="label">وضعیت :</span> <span x-text="item.status + ' · ' + item.type"></span></p>
+                </div>
+                <div class="number-card-bottom price-only">
+                  <span class="number-card-price" x-text="formatPrice(item.price)"></span>
+                </div>
+              </article>
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-center pt-[var(--space-4)]">
+      <button type="button" class="btn btn-outline" style="background:transparent; border-color:rgba(255,255,255,.2); color:#fff;">
+        مشاهده همه
+        <svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 6l-6 6 6 6"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     TRUST SECTION
+     ========================================================================== -->
+<section class="container-app" style="margin-top:var(--space-16);">
+  <div class="grid grid-cols-1 md:grid-cols-4" style="gap:var(--gap-xl);">
+
+    <div class="trust-item flex-row md:flex-col" style="text-align:start; gap:var(--gap-md);">
+      <span class="trust-icon">
+        <svg class="icon-lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9h8M8 13h5M6 4h12a2 2 0 012 2v9l-4 4H6a2 2 0 01-2-2V6a2 2 0 012-2z"/></svg>
+      </span>
+      <div class="md:text-center">
+        <h3 class="font-[var(--font-semibold)]">راهنمای پیش از خرید</h3>
+        <p style="font-size:var(--font-size-sm); color:var(--text-muted); margin-top:var(--space-1);">پاسخ به تمام سوال‌های شما</p>
+      </div>
+    </div>
+
+    <div class="trust-item flex-row md:flex-col" style="text-align:start; gap:var(--gap-md);">
+      <span class="trust-icon">
+        <svg class="icon-lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4a4 4 0 100 8 4 4 0 000-8zM4 20c0-3.3 3.6-6 8-6s8 2.7 8 6"/></svg>
+      </span>
+      <div class="md:text-center">
+        <h3 class="font-[var(--font-semibold)]">فرآیند مشخص</h3>
+        <p style="font-size:var(--font-size-sm); color:var(--text-muted); margin-top:var(--space-1);">رزرو، پرداخت و انتقال در صورت وجود</p>
+      </div>
+    </div>
+
+    <div class="trust-item flex-row md:flex-col" style="text-align:start; gap:var(--gap-md);">
+      <span class="trust-icon">
+        <svg class="icon-lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5.5c0 8 7.5 15.5 15.5 15.5l2-4-5-2-1.5 1.5A12 12 0 018 12.5L9.5 11 7.5 6 3.5 5.5z"/></svg>
+      </span>
+      <div class="md:text-center">
+        <h3 class="font-[var(--font-semibold)]">پاسخ‌گویی مستقیم</h3>
+        <p style="font-size:var(--font-size-sm); color:var(--text-muted); margin-top:var(--space-1);">ارتباط با ادمین از طریق تلگرام</p>
+      </div>
+    </div>
+
+    <div class="trust-item flex-row md:flex-col" style="text-align:start; gap:var(--gap-md);">
+      <span class="trust-icon">
+        <svg class="icon-lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg>
+      </span>
+      <div class="md:text-center">
+        <h3 class="font-[var(--font-semibold)]">اطلاعات شفاف</h3>
+        <p style="font-size:var(--font-size-sm); color:var(--text-muted); margin-top:var(--space-1);">نمایش دقیق اپراتور، رندی و مشخصات شماره</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     TESTIMONIALS
+     ========================================================================== -->
+<section style="margin-top:var(--space-16); position: relative;" x-cloak>
+  <div class="container-app flex flex-col gap-[var(--space-2)]" style="margin-bottom:var(--space-8);">
+    <h2 class="heading-section">تجربه مشتریان</h2>
+    <p style="font-size:var(--font-size-sm); color:var(--text-muted);">تجربه خرید دیگران بهترین راه برای اطمینان شماست.</p>
+  </div>
+
+  <div class="testimonial-shell">
+    <div class="carousel-shell">
+      <!-- دکمه قبلی (با x-ref) -->
+      <button type="button" class="carousel-nav nav-start testimonial-nav testimonial-prev" aria-label="قبلی" x-ref="prevBtn">
+        <svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transform: rotate(180deg);"><path stroke-linecap="round" stroke-linejoin="round" d="M15 6l-6 6 6 6"/></svg>
+      </button>
+      
+      <!-- دکمه بعدی (با x-ref) -->
+      <button type="button" class="carousel-nav nav-end testimonial-nav testimonial-next" aria-label="بعدی" x-ref="nextBtn">
+        <svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transform: rotate(180deg);"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6"/></svg>
+      </button>
+
+      <!-- کانتینر سواپر (با x-ref) -->
+      <div class="swiper testimonial-swiper" x-ref="swiperContainer">
+        <div class="swiper-wrapper">
+          <template x-for="t in testimonials" :key="t.name">
+            <div class="swiper-slide testimonial-card !w-[200px] flex justify-center">
+              <div>
+                <div class="testimonial-stars" style="margin-bottom:var(--space-3);">
+                  <template x-for="i in 5" :key="i">
+                    <svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg>
+                  </template>
+                </div>
+                <p style="font-size:var(--font-size-sm); color:var(--text-secondary); line-height:var(--line-relaxed);" x-text="t.text"></p>
+                <div class="flex items-center" style="gap:var(--space-3); margin-top:var(--space-4);">
+                  <span class="testimonial-avatar" x-text="t.initial"></span>
+                  <div>
+                    <p class="font-[var(--font-semibold)]" style="font-size:var(--font-size-sm);" x-text="t.name"></p>
+                    <p style="font-size:var(--font-size-xs); color:var(--text-muted);" x-text="t.role"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+<!-- ==========================================================================
+     CTA
+     ========================================================================== -->
+<section class="container-app" style="margin-top:var(--space-16);">
+  <div class="cta-panel flex flex-col md:flex-row items-center" style="gap:var(--gap-lg); padding:var(--space-8);">
+    <div class="order-1 md:order-2" style="width:var(--space-32); flex-shrink:0;">
+      <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 200" class="w-full" style="color:rgba(255,255,255,.9);">
+        <rect x="10" y="5" width="80" height="190" rx="16" fill="none" stroke="currentColor" stroke-width="3"/>
+        <rect x="18" y="20" width="64" height="150" rx="4" fill="rgba(255,255,255,.08)"/>
+        <circle cx="50" cy="185" r="5" fill="currentColor"/>
+      </svg> -->
+      
+      <img class="w-full h-full" style="transform: scale(1.3);" src="static/images/phone_cta.webp" alt="">
+    </div>
+    <div class="order-2 md:order-1 text-center md:text-start" style="flex:1;">
+      <h2 class="font-[var(--font-bold)]" style="color:#fff; font-size:var(--font-size-2xl);">شماره موردنظرتان را پیدا نکردید؟</h2>
+      <p style="color:rgba(255,255,255,.7); margin-top:var(--space-2);">برای دریافت مشاوره و بررسی شماره‌های موجود، با ادمین در ارتباط باشید.</p>
+      <button type="button" class="btn btn-accent" style="margin-top:var(--space-5);">
+        ارتباط با ادمین
+        <svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 4L4 12l6 2m10-10l-4 16-6-6m10-10L10 14"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     FOOTER
+     ========================================================================== -->
+<footer style="margin-top:var(--space-20); background:#0B2523; color:rgba(255,255,255,.8); padding-top:var(--space-12);">
+  <div class="container-app grid grid-cols-1 md:grid-cols-4 text-center md:text-start" style="gap:var(--gap-xl);">
+    <div>
+      <div class="flex items-center justify-center md:justify-start" style="gap:var(--space-2); margin-bottom:var(--space-3);">
+        <svg class="icon-lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="color:var(--accent);"><path d="M4 9l2 6h12l2-6-5 3-3-6-3 6-5-3z" stroke-linejoin="round"/><path d="M5.5 18h13" stroke-linecap="round"/></svg>
+        <span class="font-[var(--font-bold)]" style="font-size:var(--font-size-lg); color:#fff;">رندکده</span>
+      </div>
+      <p style="font-size:var(--font-size-sm); color:rgba(255,255,255,.6);">ویترین آنلاین شماره‌های رند و خاص</p>
+    </div>
+
+    <div>
+      <p class="footer-col-title">فروشگاه</p>
+      <a href="#" class="footer-link">شماره‌های ویژه</a>
+      <a href="#" class="footer-link">علاقه‌مندی‌ها</a>
+    </div>
+
+    <div>
+      <p class="footer-col-title">پشتیبانی</p>
+      <a href="#" class="footer-link">ارتباط با ادمین</a>
+      <a href="#" class="footer-link">راهنمای خرید</a>
+    </div>
+
+    <div>
+      <p class="footer-col-title">شبکه‌های اجتماعی</p>
+      <div class="flex items-center justify-center md:justify-start" style="gap:var(--space-3);">
+        <span class="icon-btn" style="background:rgba(255,255,255,.1); color:#fff;"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 5l-2 15-6-4-3 3-1-5-6-3z" stroke-linejoin="round"/></svg></span>
+        <span class="icon-btn" style="background:rgba(255,255,255,.1); color:#fff;"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></svg></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-app text-center border-t" style="margin-top:var(--space-10); padding-block:var(--space-5); border-color:rgba(255,255,255,.1); font-size:var(--font-size-xs); color:rgba(255,255,255,.5); display:flex; flex-direction:column; gap:var(--space-1);">
+    <p>© رندکده. تمامی حقوق محفوظ است.</p>
+    <p>Design &amp; Developed By MohammadTaha</p>
+  </div>
+</footer>
+
+<script>
+function shopApp() {
+  return {
+    // ---------- state ----------
+    theme: 'light',
+    mobileMenuOpen: false,
+    activeMenuLink: 'shop',
+    filtersOpen: false,
+    openCapsule: null,
+    mobileSheetKey: null,
+    sortOpen: false,
+    searchFocused: false,
+    searchQuery: '',
+    sortBy: 'newest',
+    currentPage: 1,
+    totalCount: 100,
+    favorites: [],
+
+    // committed filter values (what a future server call would read)
+    filters: {
+      prefix: 'همه', operator: 'همه', code: 'همه', status: 'همه', type: 'همه', rondType: 'همه' ,
+      specialOnly: false, priceMin: 0, priceMax: 4000,
+    },
+    // draft copy edited inside the full filters drawer, committed on "اعمال فیلتر"
+    draftFilters: {
+      prefix: 'همه', operator: 'همه', code: 'همه', status: 'همه', type: 'همه',
+      specialOnly: false, priceMin: 0, priceMax: 4000,
+    },
+    // accordion open/close state per group, independent of filter values
+    drawerAccordion: { prefix: false, operator: false, code: false, status: false, type: false },
+    // keeps the definitions (and therefore the drawer's order) constant
+    filterDefs: [
+      { key: 'prefix', label: 'پیش‌شماره', options: ['0912', '0910', '0911', '0935', '0936', '0990'],
+        icon: 'M3 5.5c0 8 7.5 15.5 15.5 15.5l2-4-5-2-1.5 1.5A12 12 0 018 12.5L9.5 11 7.5 6 3.5 5.5z' },
+      { key: 'operator', label: 'اپراتور', options: ['همراه اول', 'ایرانسل', 'رایتل'],
+        icon: 'M4 20h2v-4H4v4zm5 0h2v-8H9v8zm5 0h2v-12h-2v12zm5 0h2V4h-2v16z' },
+      { key: 'code', label: 'کد شماره', options: ['1', '2', '3', '4', '5'],
+        icon: 'M4 9h16M4 15h16M8 4L6 20M16 4l-2 16' },
+      { key: 'rondType', label: 'نوع رندی', options: ['تکراری', 'پله‌ای', 'آینه‌ای', 'ترتیبی', 'جفت‌جفت'],
+        icon: 'M4 9h16M4 15h16M8 4L6 20M16 4l-2 16' },
+      { key: 'status', label: 'وضعیت', options: ['صفر', 'کارکرده'],
+        icon: 'M12 22a10 10 0 100-20 10 10 0 000 20zM8 12l3 3 5-6' },
+      { key: 'type', label: 'نوع شماره', options: ['دائمی', 'اعتباری'],
+        icon: 'M20 12l-8 8-9-9V4h7l9 9a1 1 0 010 1.4zM7 7h.01' },
+    ],
+    // second variable: drives the *visual* order of the quick capsules only
+    capsuleOrder: [],
+
+    sortOptions: [
+      { value: 'newest', label: 'جدیدترین' },
+      { value: 'oldest', label: 'قدیمی‌ترین' },
+      { value: 'expensive', label: 'گران‌ترین' },
+      { value: 'cheap', label: 'ارزان‌ترین' },
+    ],
+
+    searchResults: [
+      { number: '0912 777 88 99', price: 950 },
+      { number: '0935 111 22 11', price: 140 },
+      { number: '0910 444 33 22', price: 160 },
+    ],
+    suggestions: ['0912', '0935', 'همراه اول', 'شماره ویژه', 'رند'],
+    recentSearches: ['0912 345 67 89', 'شماره ویژه همراه اول', '0935', 'شماره میلیاردی'],
+
+    numbers: [
+      { id: 1, number: '0912 777 88 99', operatorName: 'همراه اول', tags: ['تکراری', 'آینه‌ای'], status: 'صفر', type: 'دائمی', available: true, price: 950, special: true },
+      { id: 2, number: '0935 111 22 11', operatorName: 'ایرانسل', tags: ['تکراری'], status: 'کارکرده', type: 'اعتباری', available: true, price: 140, special: false },
+      { id: 3, number: '0910 444 33 22', operatorName: 'رایتل', tags: ['ترتیبی'], status: 'صفر', type: 'دائمی', available: true, price: 160, special: false },
+      { id: 4, number: '0990 123 45 67', operatorName: 'رایتل', tags: ['تکراری', 'آینه‌ای'], status: 'کارکرده', type: 'اعتباری', available: true, price: 130, special: false },
+      { id: 5, number: '0912 888 77 55', operatorName: 'همراه اول', tags: ['تکراری', 'ترتیبی'], status: 'صفر', type: 'دائمی', available: true, price: 170, special: false },
+      { id: 6, number: '0935 333 11 22', operatorName: 'ایرانسل', tags: ['پله‌ای', 'جفت‌جفت'], status: 'کارکرده', type: 'دائمی', available: true, price: 145, special: false },
+      { id: 7, number: '0910 666 22 33', operatorName: 'رایتل', tags: ['ترتیبی', 'آینه‌ای'], status: 'صفر', type: 'دائمی', available: true, price: 145, special: false },
+      { id: 8, number: '0912 444 55 66', operatorName: 'همراه اول', tags: ['تکراری', 'پله‌ای'], status: 'کارکرده', type: 'دائمی', available: true, price: 179, special: false },
+      { id: 9, number: '0990 999 77 88', operatorName: 'ایرانسل', tags: ['آینه‌ای', 'پله‌ای'], status: 'صفر', type: 'اعتباری', available: true, price: 140, special: false },
+      { id: 10, number: '0910 222 33 44', operatorName: 'رایتل', tags: ['ترتیبی', 'پله‌ای'], status: 'کارکرده', type: 'دائمی', available: true, price: 160, special: false },
+      { id: 11, number: '0935 555 66 77', operatorName: 'همراه اول', tags: ['تکراری', 'پله‌ای'], status: 'صفر', type: 'دائمی', available: false, price: 150, special: false },
+      { id: 12, number: '0912 333 22 11', operatorName: 'ایرانسل', tags: ['ترتیبی', 'جفت‌جفت'], status: 'کارکرده', type: 'اعتباری', available: true, price: 180, special: false },
+    ],
+
+    specialNumbers: [
+      { id: 101, number: '0912 777 77 77', operatorName: 'همراه اول', tags: ['تکراری'], status: 'صفر', type: 'دائمی', price: 3500 },
+      { id: 102, number: '0935 111 11 11', operatorName: 'ایرانسل', tags: ['ترتیبی'], status: 'صفر', type: 'دائمی', price: 2800 },
+      { id: 103, number: '0990 333 66 66', operatorName: 'رایتل', tags: ['جفت‌جفت'], status: 'صفر' , type: 'دائمی', price: 3400 },
+      { id: 104, number: '0910 123 00 00', operatorName: 'همراه اول', tags: ['آینه‌ای'], status: 'صفر', type: 'دائمی', price: 190 },
+    ],
+
+    testimonials: [
+      { name: 'سارا احمدی', role: 'خریدار شماره رند', initial: 'س', text: 'فرآیند خرید خیلی راحت بود. هم پشتیبانی خوب بود هم شماره سریع منتقل شد.' },
+      { name: 'علی محمدی', role: 'خریدار شماره رند', initial: 'ع', text: 'خیلی سریع پاسخ دادن و همه چیز دقیق و شفاف بود. شماره هم عالیه.' },
+      { name: 'مهدی رضایی', role: 'خریدار شماره ویژه', initial: 'م', text: 'شماره‌ای که می‌خواستم رو پیدا کردم؛ واقعا عالیه، ممنون از تیم رندکده.' },
+      { name: 'نیلوفر کریمی', role: 'خریدار شماره رند', initial: 'ن', text: 'اطلاعات شماره‌ها دقیق و شفاف بود، خیالم از خرید راحت شد.' },
+      { name: 'نیوفر کریمی', role: 'خریدار شماره رند', initial: 'ن', text: 'اطلاعات شماره‌ها دقیق و شفاف بود، خیالم از خرید راحت شد.' },
+      { name: 'نوفر کریمی', role: 'خریدار شماره رند', initial: 'ن', text: 'اطلاعات شماره‌ها دقیق و شفاف بود، خیالم از خرید راحت شد.' },
+    ],
+
+    // ---------- init ----------
+    init() {
+      this.theme = localStorage.getItem('randkala-theme') || 'light';
+      this.updateCapsuleOrder();
+      this.$nextTick(() => this.initSwipers());
+    },
+
+    initSwipers() {
+      new Swiper('.special-swiper', {
+        slidesPerView: 1.3,
+        spaceBetween: 16,
+        rtl: true,
+        navigation: { nextEl: '.special-next', prevEl: '.special-prev' },
+        breakpoints: {
+          480: { slidesPerView: 1.8 },
+          640: { slidesPerView: 2.3 },
+          1024: { slidesPerView: 3.3 },
+          1280: { slidesPerView: 4 },
+        },
+      });
+      new Swiper(this.$refs.swiperContainer, {
+        effect: 'coverflow',
+        grabCursor: true,
+        centeredSlides: true,
+        slidesPerView: 'auto',
+        spaceBetween: 16,
+        rtl: true,
+        loop: true,
+        coverflowEffect: { rotate: 0, stretch: -10, depth: 100, modifier: 1.5, slideShadows: false },
+        navigation: { 
+            nextEl: this.$refs.nextBtn, 
+            prevEl: this.$refs.prevBtn 
+        },
+        breakpoints:{
+            480: {effect:'slider' , centeredSlides : false , loop : false}
+        }
+      });
+    },
+
+    // ---------- theme ----------
+    toggleTheme() {
+      this.theme = this.theme === 'light' ? 'dark' : 'light';
+      localStorage.setItem('randkala-theme', this.theme);
+    },
+
+    // ---------- search ----------
+    goToSearch() {
+      this.searchFocused = false;
+      document.getElementById('numbers').scrollIntoView({ behavior: 'smooth' });
+    },
+
+    // ---------- capsule filters ----------
+    toggleCapsule(key) {
+      const isMobile = window.matchMedia('(max-width: 767px)').matches;
+      if (isMobile) {
+        this.mobileSheetKey = this.mobileSheetKey === key ? null : key;
+      } else {
+        this.openCapsule = this.openCapsule === key ? null : key;
+      }
+    },
+    currentSheetDef() {
+      return this.filterDefs.find(d => d.key === this.mobileSheetKey) || null;
+    },
+    selectFilter(key, value) {
+      this.filters[key] = value;
+      this.openCapsule = null;
+      this.updateCapsuleOrder();
+    },
+    resetFilter(key) {
+      this.filters[key] = 'همه';
+      this.updateCapsuleOrder();
+    },
+    // second variable in action: only reorders the capsules, never touches filterDefs
+    updateCapsuleOrder() {
+      const active = this.filterDefs.filter(d => this.filters[d.key] !== 'همه').map(d => d.key);
+      const inactive = this.filterDefs.filter(d => this.filters[d.key] === 'همه').map(d => d.key);
+      this.capsuleOrder = [...active, ...inactive];
+    },
+    orderedFilterDefs() {
+      return this.capsuleOrder.map(key => this.filterDefs.find(d => d.key === key));
+    },
+    activeFilterCount() {
+      let count = 0;
+      this.filterDefs.forEach(d => { if (this.filters[d.key] !== 'همه') count++; });
+      if (this.filters.specialOnly) count++;
+      if (this.filters.priceMin > 0 || this.filters.priceMax < 4000) count++;
+      return count;
+    },
+    draftActiveFilterCount() {
+      let count = 0;
+      this.filterDefs.forEach(d => { if (this.draftFilters[d.key] !== 'همه') count++; });
+      if (this.draftFilters.specialOnly) count++;
+      if (this.draftFilters.priceMin > 0 || this.draftFilters.priceMax < 4000) count++;
+      return count;
+    },
+
+    // ---------- full drawer: draft -> commit on apply ----------
+    openFiltersDrawer() {
+      this.draftFilters = JSON.parse(JSON.stringify(this.filters));
+      this.filtersOpen = true;
+    },
+    applyFilters() {
+      this.filters = JSON.parse(JSON.stringify(this.draftFilters));
+      this.updateCapsuleOrder();
+      this.filtersOpen = false;
+    },
+
+    // ---------- sort ----------
+    sortLabel() {
+      const found = this.sortOptions.find(o => o.value === this.sortBy);
+      return found ? found.label : '';
+    },
+
+    // ---------- favorites ----------
+    toggleFav(id) {
+      const idx = this.favorites.indexOf(id);
+      if (idx > -1) this.favorites.splice(idx, 1);
+      else this.favorites.push(id);
+    },
+
+    // ---------- price format ----------
+    formatPrice(m) {
+      if (m >= 1000) {
+        const b = Math.floor(m / 1000);
+        const rem = m % 1000;
+        if (rem === 0) return b + ' میلیارد تومان';
+        return b + '.' + String(rem).padStart(3, '0') + ' میلیارد';
+      }
+      return m.toLocaleString('en-US') + ' میلیون';
+    },
+  }
+}
+</script>
+
+</body>
+</html>
